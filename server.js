@@ -22,5 +22,5 @@ mongoose.connect(process.env.DATABASE_URL, {
 });
 
 app.listen(port, () => {
-  console.log("Rodando");
+  console.log("Rodando a api!");
 });
