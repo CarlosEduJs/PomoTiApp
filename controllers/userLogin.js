@@ -29,7 +29,7 @@ export const login = async (req, res) => {
     });
   } catch (error) {
     console.error("Error during login:", error);
-    return res.status(500).json({ error: "Erro no servidor" });
+    return res.status(500).json({ error: "Erro no servidor", _id: user._id });
   }
 };
 
