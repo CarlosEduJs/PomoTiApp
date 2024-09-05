@@ -26,11 +26,11 @@ export const login = async (req, res) => {
 
     return res.status(200).json({
       message: "Código enviado para o seu email, por favor verifique!",
-      _id: user._id 
+      _id: user._id, userData: user,
     });
   } catch (error) {
     console.error("Error during login:", error);
-    return res.status(500).json({ error: "Erro no servidor"});
+    return res.status(500).json({ error: "Erro no servidor" });
   }
 };
 
