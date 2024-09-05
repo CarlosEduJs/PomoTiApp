@@ -42,11 +42,9 @@ export const verify2FA = async (req, res) => {
       return res.status(204).json({ message: "Usuario não encontrado!" });
     }
 
-    const isValid = verifyCode(code);
-    if (!isValid) {
+    if (user.twoFactorCode !== code) {
       return res.status(401).json({
-        message:
-          "Codigo Inválido, por favor verifique o codigo e tente novamente",
+        message: "Código inválido, por favor verifique o código e tente novamente",
       });
     }
 
