@@ -16,7 +16,7 @@ export const send2FACodeByEmail = async (user) => {
 };
 
 export const sendLinkResetPassowrd = async (userId, email, resetToken) => {
-  const link = `http://localhost:3000/login/reset-password/?id=${userId}&token=${resetToken}`;
+  const link = `http://localhost:3000/login/confirmtoken/?id=${userId}&token=${resetToken}`;
   await sendEmail(email, "Redefinir Senha", `Acesse o link abaixo para alterar sua senha: ${link}`);
   return link;
 };
