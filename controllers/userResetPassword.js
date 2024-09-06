@@ -56,7 +56,7 @@ export const resetPasswordReset = async (req, res) => {
 }
 
 export const verifyToken = async (req, res) => {
-    const { id, token } = req.params;
+    const { id, token } = req.query;
 
     try {
         // Encontrar o usuário com base no ID e verificar o token
