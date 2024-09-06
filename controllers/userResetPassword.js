@@ -1,4 +1,5 @@
 import User from "../models/modelUser.js";
+import bcrypt from "bcryptjs";
 import crypto from "crypto";
 
 import { sendLinkResetPassowrd } from "../speakease/skSettings.js";
@@ -18,7 +19,7 @@ export const sendLinkPassword = async (req, res) => {
         user.resetPasswordToken = resetToken;
         user.resetPasswordExpires = resetTokenExpiry;
         await user.save();
-        await sendLinkResetPassowrd(email);
+        await sendLinkResetPassowrd(email, resetToken);
 
         res.status(200).json({ message: "Link de redefinição enviado para seu email!" });
     } catch (error) {
@@ -31,7 +32,6 @@ export const resetPasswordReset = async (req, res) => {
     const { token, newPassword } = req.body;
 
     try {
-
         const user = await User.findOne({
             resetPasswordToken: token,
             resetPasswordExpires: { $gt: Date.now() },
@@ -43,7 +43,6 @@ export const resetPasswordReset = async (req, res) => {
 
         const hashedPassword = bcrypt.hashSync(newPassword, 8);
         user.password = hashedPassword;
-
 
         user.resetPasswordToken = undefined;
         user.resetPasswordExpires = undefined;
