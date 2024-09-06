@@ -18,6 +18,7 @@ const cycleSchema = new Schema({
 });
 
 const userSchema = new Schema({
+  userId: { type: String, unique: true },
   name: { type: String, required: true },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
@@ -38,6 +39,7 @@ const userSchema = new Schema({
     avgCycleCompletionTime: { type: Number, default: 0 }, // Em milissegundos
   },
   cycles: [cycleSchema],
+  twoFactorSecret: { type: String, unique: true },
 });
 
 const User = mongoose.model("User", userSchema);

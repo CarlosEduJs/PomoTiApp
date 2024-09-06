@@ -8,7 +8,6 @@ export const updateProfile = async (req, res) => {
 
     let updateData = { name, email };
 
-    // Se uma nova senha for fornecida, ela deve ser criptografada e adicionada ao updateData
     if (password) {
       const hashedPassword = bcrypt.hashSync(password, 8);
       updateData.password = hashedPassword;

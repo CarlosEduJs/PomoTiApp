@@ -1,6 +1,10 @@
 import User from "../models/modelUser.js";
 import bcrypt from "bcryptjs";
 
+function generateUserId() {
+  return Math.floor(100000000000000 + Math.random() * 900000000000000).toString();
+}
+
 function generateId(length = 10) {
   const characters =
     "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -57,11 +61,13 @@ export const createUser = async (req, res) => {
     };
 
     const newUser = new User({
+      userId: generateUserId(),
       name: name,
       email: email,
       password: hashedPassword,
       cycles: processedCycles,
       stats: processedStats,
+      twoFactorSecret: "undefined",
     });
 
     await newUser.save();
