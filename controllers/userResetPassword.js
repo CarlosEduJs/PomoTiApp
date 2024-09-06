@@ -19,9 +19,9 @@ export const sendLinkPassword = async (req, res) => {
         user.resetPasswordToken = resetToken;
         user.resetPasswordExpires = resetTokenExpiry;
         await user.save();
-        await sendLinkResetPassowrd(email, resetToken);
+        await sendLinkResetPassowrd(user._id, email, resetToken);
 
-        res.status(200).json({ message: "Link de redefinição enviado para seu email!" });
+        res.status(200).json({ message: "Link de redefinição enviado para seu email!", id: user._id });
     } catch (error) {
         console.error("Error during login:", error);
         return res.status(500).json({ error: "Erro no servidor" });
@@ -29,16 +29,13 @@ export const sendLinkPassword = async (req, res) => {
 }
 
 export const resetPasswordReset = async (req, res) => {
-    const { token } = req.params;
+    const { id, token } = req.params;
     const { newPassword } = req.body;
 
     try {
-        const user = await User.findOne({
-            resetPasswordToken: token,
-            resetPasswordExpires: { $gt: Date.now() },
-        });
+        const user = await User.findById(id);
 
-        if (!user) {
+        if (!user || user.resetPasswordToken !== token || user.resetPasswordExpires < Date.now()) {
             return res.status(400).json({ error: 'Token inválido ou expirado' });
         }
 

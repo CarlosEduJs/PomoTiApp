@@ -98,6 +98,6 @@ router.post("/users/login", login);
 router.post("/users/verify2FA", verify2FA);
 
 router.post('/users/login/reset-password', sendLinkPassword);  // Solicitar o reset
-router.post('/users/login/reset-password/:token', resetPasswordReset);
+router.post('/users/login/reset-password/:id/:token', resetPasswordReset);
 
 export default router;
