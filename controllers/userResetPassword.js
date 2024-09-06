@@ -54,3 +54,27 @@ export const resetPasswordReset = async (req, res) => {
     }
 
 }
+
+export const verifyToken = async (req, res) => {
+    const { id, token } = req.params;
+
+    try {
+        // Encontrar o usuário com base no ID e verificar o token
+        const user = await User.findById(id);
+
+        if (!user) {
+            return res.status(400).json({ valid: false, message: 'Usuário não encontrado' });
+        }
+
+        // Verificar se o token bate e se não expirou
+        if (user.resetPasswordToken !== token || user.resetPasswordExpires < Date.now()) {
+            return res.status(400).json({ valid: false, message: 'Token inválido ou expirado' });
+        }
+
+        // Se o token for válido
+        res.status(200).json({ valid: true, message: 'Token válido' });
+    } catch (error) {
+        console.error('Erro ao verificar token:', error);
+        res.status(500).json({ valid: false, message: 'Erro no servidor' });
+    }
+};
