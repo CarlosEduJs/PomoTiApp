@@ -35,10 +35,11 @@ import { deleteUser } from "../controllers/deleteUser.js";
 import { deleteCycle } from "../controllers/deleteInforsForUser/deleteCycles.js";
 import { deleteTask } from "../controllers/deleteInforsForUser/deleteTask.js";
 
-//Importando função - Logando o usuario
+//Importando função - Logando o usuario, resetando senha
 
 import { login } from "../controllers/userLogin.js";
 import { verify2FA } from "../controllers/userLogin.js";
+import { sendLinkPassword, resetPasswordReset } from "../controllers/userResetPassword.js"
 
 const router = express.Router();
 
@@ -95,5 +96,8 @@ router.put("/users/:id", authenticate, updateUserStatistics);
 
 router.post("/users/login", login);
 router.post("/users/verify2FA", verify2FA);
+
+router.post('/users/login/reset-password', sendLinkPassword);  // Solicitar o reset
+router.post('/users/login/reset-password/confirm', resetPasswordReset);
 
 export default router;

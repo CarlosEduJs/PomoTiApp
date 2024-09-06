@@ -40,6 +40,8 @@ const userSchema = new Schema({
   },
   cycles: [cycleSchema],
   twoFactorSecret: { type: String, unique: true },
+  resetPasswordToken: String,
+  resetPasswordExpires: Date,
 });
 
 const User = mongoose.model("User", userSchema);

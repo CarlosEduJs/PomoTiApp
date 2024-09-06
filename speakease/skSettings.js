@@ -14,3 +14,9 @@ export const send2FACodeByEmail = async (user) => {
   await sendEmail(user.email, "Seu código 2FA", `Seu código 2FA é: ${code}`);
   return code;
 };
+
+export const sendLinkResetPassowrd = async (user) => {
+  const link = `http://localhost:3000/login/reset-password/${resetToken}`;
+  await sendEmail(user.email, "Redefinir Senha", `Acesse o link abaixo para alterar sua senha: ${link}`);
+  return link;
+};
