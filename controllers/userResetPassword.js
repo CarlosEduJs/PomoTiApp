@@ -29,7 +29,8 @@ export const sendLinkPassword = async (req, res) => {
 }
 
 export const resetPasswordReset = async (req, res) => {
-    const { token, newPassword } = req.body;
+    const { token } = req.params;
+    const { newPassword } = req.body;
 
     try {
         const user = await User.findOne({
