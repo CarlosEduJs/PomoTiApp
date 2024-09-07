@@ -67,7 +67,6 @@ export const createUser = async (req, res) => {
       password: hashedPassword,
       cycles: processedCycles,
       stats: processedStats,
-      twoFactorSecret: "undefined",
     });
 
     await newUser.save();

@@ -39,7 +39,7 @@ const userSchema = new Schema({
     avgCycleCompletionTime: { type: Number, default: 0 }, // Em milissegundos
   },
   cycles: [cycleSchema],
-  twoFactorSecret: { type: String, unique: true },
+  twoFactorSecret: String,
   resetPasswordToken: String,
   resetPasswordExpires: Date,
 });

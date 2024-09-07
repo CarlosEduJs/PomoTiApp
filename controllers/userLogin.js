@@ -49,7 +49,7 @@ export const verify2FA = async (req, res) => {
       return res.status(404).json({ message: "Usuário não encontrado" });
     }
 
-    if(user.twoFactorSecret !== code) {
+    if (user.twoFactorSecret !== code) {
       return res.status(401).json({ message: "Código 2FA inválido" });
     }
 
@@ -63,6 +63,9 @@ export const verify2FA = async (req, res) => {
       sameSite: "Strict",
       maxAge: 48 * 60 * 60 * 1000, // 48 horas
     });
+
+    user.twoFactorSecret = undefined;
+    await user.save();
 
     res.status(200).json({ message: "Verificação 2FA bem-sucedida", token });
   } catch (error) {

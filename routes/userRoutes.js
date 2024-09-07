@@ -8,7 +8,7 @@ import { authenticate } from "../middleware/authenticate.js";
 
 import { createUser } from "../controllers/userCreate.js";
 import { getAllUsers } from "../controllers/getAllUsers.js";
-import { getUser} from '../controllers/getUser.js'
+import { getUser } from '../controllers/getUser.js'
 
 import { updateProfile } from "../controllers/updatesOfUser/updateProfile.js";
 
